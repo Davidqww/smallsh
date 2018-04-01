@@ -1,4 +1,10 @@
+/*
+A basic shell that supports three built-on commands: exit, cd, status
+Handles all other commands by spawning child processes to perform
+execvp().  
 
+USAGE: [arg1 arg2 ...] [< input_file] [> output_file] [&]
+*/
 
 #include <signal.h>
 #include <stdio.h>
@@ -18,8 +24,9 @@ typedef enum { false, true } bool;
 /*************************************************************************************
 **Function: int getArgList(char**, char*)
 **Description: Parses a string into an array of words separated by white spaces or \n
-**Arguments: (char**) an array of strings that hold the parsed words
-			 (char*) string to be parsed
+**Arguments: 
+	(char**) an array of strings that hold the parsed words
+	(char*) string to be parsed
 **Returns: (int) the number of parsed words
 *************************************************************************************/
 int getArgList(char** argList, char* input) {
@@ -78,8 +85,9 @@ int getUserCommand(char** argList) {
 /****************************************************************
 **Function: void cleanUpMemory(char**, int)
 **Description: Clean up arguments list after it has been called 
-**Arguments: (char**) list of arguments
-			 (int) number of arguments
+**Arguments: 
+	(char**) list of arguments
+	(int) number of arguments
 **Returns: none
 *****************************************************************/
 void cleanUpMemory(char** argList, int numberOfArg) {
@@ -91,11 +99,13 @@ void cleanUpMemory(char** argList, int numberOfArg) {
 
 /**************************************************************************************
 **Function: void checkForFileRedirection(char**, int, bool)
-**Description: Checks through command list and see if there are redirection arguments.
-			If there is, then redirect to correct file  
-**Arguments: (char**) list of arguments
-			 (int) number of arguments
-			 (bool) checks if command is ran in background or foreground
+**Description: 
+	Checks through command list and see if there are redirection arguments.
+	If there is, then redirect to correct file  
+**Arguments: 
+		(char**) list of arguments
+		(int) number of arguments
+		(bool) checks if command is ran in background or foreground
 **Returns: none
 **************************************************************************************/
 void checkForFileRedirection(char** argList, int numberOfArg, bool ranOnBackground) {
@@ -150,10 +160,12 @@ void checkStatus(int statusCode) {
 
 /***************************************************************************
 **Function: void checkBackgroundProcess(int, int)
-**Description: Loop to check if any of our background child processes has 
-completed. If yes, then write to console if it was exited or signaled.
-**Arguments: (int) process id
-			 (int) status code of terminated child process
+**Description: 
+	Loop to check if any of our background child processes has completed. 
+	If yes, then write to console if it was exited or signaled.
+**Arguments: 
+	(int) process id
+	(int) status code of terminated child process
 **Returns: none
 ****************************************************************************/
 void checkBackgroundProcess(int pid, int statusCode) {
@@ -170,10 +182,12 @@ void checkBackgroundProcess(int pid, int statusCode) {
 
 /**************************************************************************************
 **Function: void runSmallSh(char**, int)
-**Description: Check command list for exit, cd, or status and executes. All other c
-			commands are performed by a spanwed child process
-**Arguments: (char**) list of arguments
-			 (int) number of arguments
+**Description: 
+	Check command list for exit, cd, or status and executes. All other c
+	commands are performed by a spanwed child process
+**Arguments: 
+	(char**) list of arguments
+	(int) number of arguments
 **Returns: none
 **************************************************************************************/
 void runSmallSh(char** argList, int numberOfArg) {
