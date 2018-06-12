@@ -1,5 +1,5 @@
 /*
-A basic shell that supports three built-on commands: exit, cd, status
+A basic shell that supports three built-in commands: exit, cd, status
 Handles all other commands by spawning child processes to perform
 execvp().  
 
